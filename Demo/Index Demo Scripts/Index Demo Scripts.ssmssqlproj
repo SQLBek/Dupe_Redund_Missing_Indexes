@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Index Demo Scripts">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="GAMBIT.XMEN.COM:andy_local">
+          <Created>2017-08-27T19:48:10.4317651-05:00</Created>
+          <Type>SQL</Type>
+          <Server>GAMBIT.XMEN.COM</Server>
+          <UserName>andy_local</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="GAMBIT:andy_local">
+          <Created>2017-09-03T14:23:02.6711654-05:00</Created>
+          <Type>SQL</Type>
+          <Server>GAMBIT</Server>
+          <UserName>andy_local</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="HAVOK.XMEN.COM:andy_local">
+          <Created>2016-04-04T20:48:59.8078599-05:00</Created>
+          <Type>SQL</Type>
+          <Server>HAVOK.XMEN.COM</Server>
+          <UserName>andy_local</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName />
+        </ConnectionNode>
+        <ConnectionNode Name="MYSTIQUE.XMEN.COM:andy_local">
+          <Created>2016-06-28T20:59:03.5141708-05:00</Created>
+          <Type>SQL</Type>
+          <Server>MYSTIQUE.XMEN.COM</Server>
+          <UserName>andy_local</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="1 - Introducing The Tools.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>1 - Introducing The Tools.sql</FullPath>
+        </FileNode>
+        <FileNode Name="2 - Duplicate and Redundant.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>2 - Duplicate and Redundant.sql</FullPath>
+        </FileNode>
+        <FileNode Name="3 - Unused Indexes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>3 - Unused Indexes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="3a - Savings.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>3a - Savings.sql</FullPath>
+        </FileNode>
+        <FileNode Name="4 - Clean Up-First Pass.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>4 - Clean Up-First Pass.sql</FullPath>
+        </FileNode>
+        <FileNode Name="5 - Missing Indexes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>5 - Missing Indexes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="5a - Workload to Benchmark.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>5a - Workload to Benchmark.sql</FullPath>
+        </FileNode>
+        <FileNode Name="C - sp_DealershipDMLWorkload.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HAVOK.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HAVOK.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>C - sp_DealershipDMLWorkload.sql</FullPath>
+        </FileNode>
+        <FileNode Name="C - sp_DealershipWorkload.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HAVOK.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HAVOK.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>C - sp_DealershipWorkload.sql</FullPath>
+        </FileNode>
+        <FileNode Name="R - Reset NCLs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>R - Reset NCLs.sql</FullPath>
+        </FileNode>
+        <FileNode Name="6 - Missing Indexes PE.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:GAMBIT.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>GAMBIT.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>6 - Missing Indexes PE.sql</FullPath>
+        </FileNode>
+        <FileNode Name="W - Execute DML Workload.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MYSTIQUE.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>MYSTIQUE.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>W - Execute DML Workload.sql</FullPath>
+        </FileNode>
+        <FileNode Name="W - Execute Full Workload.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HAVOK.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HAVOK.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>W - Execute Full Workload.sql</FullPath>
+        </FileNode>
+        <FileNode Name="W - Execute Query Workloadx10.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HAVOK.XMEN.COM:False:andy_local</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HAVOK.XMEN.COM</AssociatedConnSrvName>
+          <AssociatedConnUserName>andy_local</AssociatedConnUserName>
+          <FullPath>W - Execute Query Workloadx10.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

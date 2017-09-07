@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# SQL Server Management Studio Solution File, Format Version 12.00
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Index Demo Scripts", "Index Demo Scripts\Index Demo Scripts.ssmssqlproj", "{875EE729-ACCC-4EB9-89C1-6D1A63627835}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD312F46-EB14-46E3-B81A-6C8043503F9B}.Default|Default.ActiveCfg = Default
+		{875EE729-ACCC-4EB9-89C1-6D1A63627835}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

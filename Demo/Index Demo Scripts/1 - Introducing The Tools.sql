@@ -47,6 +47,7 @@ GO
 ---------------------------------------
 -- sp_SQLSkills_helpindex
 --
+-- By: by Kimberly Tripp Randal
 -- Reference: 
 -- http://www.sqlskills.com/blogs/kimberly/category/sp_helpindex-rewrites/
 ---------------------------------------
@@ -72,6 +73,10 @@ GO
 
 ---------------------------------------
 -- sys.dm_db_index_usage_stats
+--
+-- Provides Index Usage Information
+-- Reference:
+-- https://msdn.microsoft.com/en-us/library/ms188755.aspx
 ---------------------------------------
 SELECT *
 FROM sys.dm_db_index_usage_stats
@@ -89,6 +94,9 @@ GO
 -- sys.dm_db_missing_index_groups
 -- sys.dm_db_missing_index_group_stats
 -- sys.dm_db_missing_index_details
+--
+-- Reference: 
+-- https://msdn.microsoft.com/en-us/library/ms345434.aspx
 ---------------------------------------
 SELECT *
 FROM sys.dm_db_missing_index_groups;
@@ -99,3 +107,18 @@ FROM sys.dm_db_missing_index_group_stats;
 SELECT *
 FROM sys.dm_db_missing_index_details;
 GO
+
+
+
+
+---------------------------------------
+-- What the Missing Index DMVs Miss
+-- 
+-- Recommendation has limited scope
+-- Column Order presented is not accurate
+-- Limited capacity: 500 index groups max
+-- Less accurate with inequality predicates
+--
+-- Reference: 
+-- https://technet.microsoft.com/en-us/library/ms345485%28v=sql.105%29.aspx
+---------------------------------------

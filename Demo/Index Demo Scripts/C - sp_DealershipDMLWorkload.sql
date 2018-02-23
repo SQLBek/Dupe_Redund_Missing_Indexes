@@ -3,7 +3,7 @@ GO
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 GO
-ALTER PROCEDURE dbo.sp_DealershipDMLWorkload (
+ALTER PROCEDURE workload.sp_DealershipDMLWorkload (
 	@NumToLoop INT = 1
 )
 WITH RECOMPILE
@@ -32,25 +32,58 @@ BEGIN
 		----------------------
 		-- Garbage UPDATE to simulate
 		-- DML operations
-		UPDATE dbo.InventoryFlat
-		SET VIN = VIN,
-			MakeName = MakeName,
-			ModelName = ModelName,
-			PackageName = PackageName,
-			ColorName = ColorName,
-			PackageCode = PackageCode,
-			ColorCode = ColorCode,
-			TrueCost = TrueCost,
-			InvoicePrice = InvoicePrice,
-			MSRP = MSRP,
-			DateReceived = DateReceived,
-			Sold = Sold,
-			SoldPrice = SoldPrice
+		SELECT @MaxInventoryFlatID = MAX(InventoryFlatID)
+		FROM dbo.InventoryFlat;
 
 		UPDATE dbo.InventoryFlat
-		SET TrueCost = TrueCost + 0.1,
-			InvoicePrice = InvoicePrice + 0.1,
-			MSRP = MSRP + 0.1				
+			SET VIN = VIN,
+				MakeName = MakeName,
+				ModelName = ModelName,
+				PackageName = PackageName,
+				ColorName = ColorName,
+				PackageCode = PackageCode,
+				ColorCode = ColorCode,
+				TrueCost = TrueCost,
+				InvoicePrice = InvoicePrice,
+				MSRP = MSRP,
+				DateReceived = DateReceived,
+				Sold = Sold,
+				SoldPrice = SoldPrice
+		-- 20180204: Don't modify ALL records.  Need to speed up this DML.
+		WHERE InventoryFlatID = @MaxInventoryFlatID
+		OPTION (MAXDOP 1)
+
+	--	IF @LoopCounter % 2 = 0
+	--	BEGIN
+	--		UPDATE dbo.InventoryFlat
+	--		SET VIN = VIN,
+	--			MakeName = MakeName,
+	--			ModelName = ModelName,
+	--			PackageName = PackageName,
+	--			ColorName = ColorName,
+	--			PackageCode = PackageCode,
+	--			ColorCode = ColorCode,
+	--			TrueCost = TrueCost,
+	--			InvoicePrice = InvoicePrice,
+	--			MSRP = MSRP,
+	--			DateReceived = DateReceived,
+	--			Sold = Sold,
+	--			SoldPrice = SoldPrice
+	--		-- 20180204: Don't modify ALL records.  Need to speed up this DML.
+	--		WHERE InventoryFlatID % ((CAST((RAND() * 10000) AS INT) % 21) + 9) = 1
+	--		OPTION (MAXDOP 1)
+	--	END
+
+	--	IF @LoopCounter % 2 = 1
+	--	BEGIN
+	--		UPDATE dbo.InventoryFlat
+	--		SET TrueCost = TrueCost + 0.1,
+	--			InvoicePrice = InvoicePrice + 0.1,
+	--			MSRP = MSRP + 0.1
+	--		-- 20180204: Don't modify ALL records.  Need to speed up this DML.
+	--		WHERE InventoryFlatID % ((CAST((RAND() * 10000) AS INT) % 31) + 7) = 1
+	--		OPTION (MAXDOP 1)
+	--	END
 
 		SET @LoopCounter = @LoopCounter + 1;
 	END
@@ -67,10 +100,11 @@ BEGIN
 		UPDATE dbo.InventoryFlat
 		SET Sold = 1,
 			SoldPrice = TrueCost + ((MSRP - TrueCost) * RAND()) 
-		WHERE InventoryFlatID % ((CAST((RAND() * 10000) AS INT) % 13) + 1) = 1
+		WHERE InventoryFlatID % ((CAST((RAND() * 10000) AS INT) % 13) + 13) = 1
 			AND Sold = 0
 			AND SoldPrice IS NULL
 			AND InventoryFlatID >= @MaxInventoryFlatID
+		OPTION (MAXDOP 1)
 	END
 END
 GO

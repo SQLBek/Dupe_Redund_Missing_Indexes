@@ -3,10 +3,10 @@ GO
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 GO
-ALTER PROCEDURE workload.sp_DealershipWorkload (
+ALTER PROCEDURE workload.sp_DealershipWorkloadFast (
 	@NumToLoop INT = 1
 )
---WITH RECOMPILE
+WITH RECOMPILE
 AS
 BEGIN
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
@@ -30,18 +30,20 @@ BEGIN
 
 		------------------------------------
 		-- Unsold Models
-		SELECT MakeName, ModelName, COUNT(1) AS MyCount
+		SELECT TOP 1
+			MakeName, ModelName, COUNT(1) AS MyCount
 		INTO #tmpA
 		FROM dbo.InventoryFlat
 		WHERE Sold = 0
 		GROUP BY MakeName, ModelName 
-		--ORDER BY MakeName, ModelName
+		ORDER BY MakeName, ModelName
 		OPTION(MAXDOP 1);
 
 
 		------------------------------------
 		-- Unsold Models by Age
-		SELECT MakeName, ModelName, 
+		SELECT TOP 1
+			MakeName, ModelName, 
 			CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE) AS MonthReceived,
 			SUM(InvoicePrice) AS TotalInvoicePrice,
 			COUNT(1) AS MyCount
@@ -49,33 +51,25 @@ BEGIN
 		FROM dbo.InventoryFlat
 		WHERE Sold = 0
 		GROUP BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
-		--ORDER BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
+		ORDER BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
 		OPTION(MAXDOP 1);
 
 
 		------------------------------------
 		-- Sold Models by Age
-		-- Original - Removed aggregations to try and speed things up
-		--SELECT MakeName, ModelName, 
-		--	CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE) AS MonthReceived,
-		--	SUM(TrueCost) AS TotalTrueCost,
-		--	SUM(MSRP) AS TotalMSRP,
-		--	SUM(InvoicePrice) AS TotalInvoicePrice,
-		--	SUM(SoldPrice) AS TotalSoldPrice,
-		--	COUNT(1) AS MyCount
-		SELECT 
-			MakeName, 
-			ModelName, 
-			DateReceived,
-			TrueCost,
-			MSRP,
-			InvoicePrice,
-			SoldPrice
+		SELECT TOP 1
+			MakeName, ModelName, 
+			CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE) AS MonthReceived,
+			SUM(TrueCost) AS TotalTrueCost,
+			SUM(MSRP) AS TotalMSRP,
+			SUM(InvoicePrice) AS TotalInvoicePrice,
+			SUM(SoldPrice) AS TotalSoldPrice,
+			COUNT(1) AS MyCount
 		INTO #tmpC
 		FROM dbo.InventoryFlat
 		WHERE Sold = 1
-		--GROUP BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
-		--ORDER BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
+		GROUP BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
+		ORDER BY MakeName, ModelName, CAST(CAST(YEAR(DateReceived) AS VARCHAR(10)) + '-' + CAST(MONTH(DateReceived) AS VARCHAR(10)) + '-01' AS DATE)
 		OPTION(MAXDOP 1);
 
 
@@ -84,7 +78,8 @@ BEGIN
 		SELECT @ModValue = MAX(ModelID)
 		FROM Vehicle.Model
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -109,7 +104,8 @@ BEGIN
 		FROM Vehicle.Model
 		WHERE Model.ModelID = (CAST((RAND() * 10000) AS INT) % @ModValue) + 1
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -118,8 +114,10 @@ BEGIN
 		INTO #tmpE
 		FROM dbo.InventoryFlat
 		WHERE InventoryFlat.ModelName = @ModelName
+		OPTION(MAXDOP 1);
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -140,7 +138,8 @@ BEGIN
 		SELECT @ModValue = MAX(ColorID)
 		FROM Vehicle.Color
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -172,7 +171,8 @@ BEGIN
 		FROM Vehicle.Package
 		WHERE Package.PackageID = (CAST((RAND() * 10000) AS INT) % @ModValue2) + 1
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -184,7 +184,8 @@ BEGIN
 			AND InventoryFlat.PackageName = @PackageName
 		OPTION(MAXDOP 1);
 
-		SELECT InventoryFlat.VIN,
+		SELECT TOP 1
+			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -208,7 +209,8 @@ BEGIN
 		FROM Vehicle.Model
 		WHERE Model.ModelID = (CAST((RAND() * 10000) AS INT) % @ModValue) + 1
 
-		SELECT MakeName, ModelName, 
+		SELECT TOP 1
+			MakeName, ModelName, 
 			SUM(SoldPrice) - SUM(TrueCost) AS TotalProfit,
 			(SUM(SoldPrice) - SUM(TrueCost)) / COUNT(1) AS AvgProfit,
 			COUNT(1) AS MyCount
@@ -236,7 +238,8 @@ BEGIN
 		FROM Vehicle.Package
 		WHERE Package.PackageID = (CAST((RAND() * 10000) AS INT) % @ModValue2) + 1
 
-		SELECT MakeName, ModelName, PackageName,
+		SELECT TOP 1
+			MakeName, ModelName, PackageName,
 			SUM(SoldPrice) - SUM(TrueCost) AS TotalProfit,
 			(SUM(SoldPrice) - SUM(TrueCost)) / COUNT(1) AS AvgProfit,
 			COUNT(1) AS MyCount
@@ -249,7 +252,8 @@ BEGIN
 		OPTION(MAXDOP 1);
 
 
-		SELECT MakeName, ModelName, PackageName,
+		SELECT TOP 1
+			MakeName, ModelName, PackageName,
 			SUM(SoldPrice) - SUM(TrueCost) AS TotalProfit,
 			(SUM(SoldPrice) - SUM(TrueCost)) / COUNT(1) AS AvgProfit,
 			COUNT(1) AS MyCount
@@ -266,7 +270,8 @@ BEGIN
 		OPTION(MAXDOP 1);
 
 
-		SELECT MakeName, ModelName, PackageName,
+		SELECT TOP 1
+			MakeName, ModelName, PackageName,
 			SUM(SoldPrice) - SUM(TrueCost) AS TotalProfit,
 			(SUM(SoldPrice) - SUM(TrueCost)) / COUNT(1) AS AvgProfit,
 			COUNT(1) AS MyCount
@@ -282,7 +287,8 @@ BEGIN
 		OPTION(MAXDOP 1);
 
 
-		SELECT MakeName, ModelName, PackageName,
+		SELECT TOP 1
+			MakeName, ModelName, PackageName,
 			SUM(SoldPrice) - SUM(TrueCost) AS TotalProfit,
 			(SUM(SoldPrice) - SUM(TrueCost)) / COUNT(1) AS AvgProfit,
 			COUNT(1) AS MyCount
@@ -324,7 +330,7 @@ BEGIN
 		FROM Vehicle.Color
 		WHERE Color.ColorID = (CAST((RAND() * 10000) AS INT) % @ModValue3) + 1
 
-		SELECT 
+		SELECT TOP 1
 			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
@@ -361,7 +367,7 @@ BEGIN
 		OPTION(MAXDOP 1);
 
 
-		SELECT 
+		SELECT TOP 1
 			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
@@ -377,9 +383,8 @@ BEGIN
 			AND Sold = 0
 		OPTION(MAXDOP 1);
 
-
-
-		SELECT 
+		
+		SELECT TOP 1
 			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
@@ -396,7 +401,7 @@ BEGIN
 		OPTION(MAXDOP 1);
 
 
-		SELECT 
+		SELECT TOP 1 
 			InventoryFlat.VIN,
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
@@ -416,7 +421,7 @@ BEGIN
 		----------------------
 		-- Let's try a query with
 		-- an Avg Profit calculation
-		SELECT 
+		SELECT TOP 1
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName,
@@ -433,36 +438,6 @@ BEGIN
 			InventoryFlat.MakeName,
 			InventoryFlat.ModelName,
 			InventoryFlat.PackageName
-		OPTION(MAXDOP 1);
-
-		--
-		--
-		--[IXF_InventoryFlat_SoldNotNull]	
-		--[VIN], [SoldPrice], [MakeName], [ModelName], [PackageName]
-		--([Sold] IS NOT NULL)
-		SELECT TOP 10000
-			InventoryFlat.VIN, 
-			InventoryFlat.SoldPrice, 
-			InventoryFlat.MakeName, 
-			InventoryFlat.ModelName, 
-			InventoryFlat.PackageName
-		INTO #tmpT
-		FROM InventoryFlat 
-		WHERE Sold IS NOT NULL
-		OPTION(MAXDOP 1);
-
-		--[IXF_InventoryFlat_ColorName_Black]	
-		--[VIN], [SoldPrice], [MakeName], [ModelName], [PackageName]
-		--([ColorName]='Black')
-		SELECT TOP 10000
-			InventoryFlat.VIN, 
-			InventoryFlat.SoldPrice, 
-			InventoryFlat.MakeName, 
-			InventoryFlat.ModelName, 
-			InventoryFlat.PackageName
-		INTO #tmpU
-		FROM InventoryFlat
-		WHERE ColorName = 'Black'
 		OPTION(MAXDOP 1);
 
 
@@ -485,8 +460,8 @@ BEGIN
 		DROP TABLE #tmpQ;
 		DROP TABLE #tmpR;
 		DROP TABLE #tmpS;
-		DROP TABLE #tmpT;
-		DROP TABLE #tmpU;
+		--DROP TABLE #tmpT;
+		--DROP TABLE #tmpU;
 
 		SET @LoopCounter = @LoopCounter + 1;
 	END

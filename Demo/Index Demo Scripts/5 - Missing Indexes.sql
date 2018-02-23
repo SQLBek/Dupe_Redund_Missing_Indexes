@@ -66,10 +66,6 @@ GO
 
 
 
-
-
-
-
 -----
 -- Re-reference Existing Indexes
 EXEC sp_SQLSkills_helpindex 'dbo.InventoryFlat';
@@ -78,8 +74,6 @@ GO
 
 
 
------
--- Script out new indexes to create!
 
 
 
@@ -87,6 +81,13 @@ GO
 -----
 -- Filtered Index?
 -- Create one for SOLD vehicles
+
+-- *** Open and execute 5a first ***
+IF EXISTS(SELECT 1 FROM sys.indexes WHERE name = 'IXF_InventoryFlat_Sold')
+	DROP INDEX InventoryFlat.IXF_InventoryFlat_Sold;
+IF EXISTS(SELECT 1 FROM sys.indexes WHERE name = 'IXF_InventoryFlat_Unsold')
+	DROP INDEX InventoryFlat.IXF_InventoryFlat_Unsold;
+
 CREATE NONCLUSTERED INDEX IXF_InventoryFlat_Sold ON InventoryFlat (
 	[ModelName], [PackageName], [ColorName]
 )
@@ -104,4 +105,3 @@ INCLUDE (
 	[VIN], [MakeName], [TrueCost], [InvoicePrice], [MSRP], [DateReceived], [SoldPrice]
 )
 WHERE Sold = 0;
-

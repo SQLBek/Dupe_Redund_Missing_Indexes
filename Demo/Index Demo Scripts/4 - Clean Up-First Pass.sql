@@ -33,19 +33,26 @@ INCLUDE (
 -- DROP DUE TO NO USAGE
 DROP INDEX InventoryFlat.IX_InventoryFlat_DateReceived;
 DROP INDEX InventoryFlat.IX_InventoryFlat_SoldPrice;
+DROP INDEX InventoryFlat.IXF_InventoryFlat_SoldNotNull;
 GO
 
 
 
 
 -----
--- Spin up Workload to run in background
+-- Return to 3a - Savings
+
+
+
+
 
 
 
 
 -----
--- Return to 3a - Savings
+-- Spin up Workload to run in background
+-- 0-Rogue_Execute Full Workload Script Bat x5.bat
+-- 0-Rogue_Execute Query Workload Script Bat x5.bat
 
 
 

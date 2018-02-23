@@ -41,7 +41,7 @@ WHERE dm_db_partition_stats.object_id = OBJECT_ID('dbo.InventoryFlat');
 SET STATISTICS TIME ON;
 
 BEGIN TRANSACTION
-	EXEC dbo.sp_DealershipDMLWorkload 
+	EXEC Workload.sp_DealershipDMLWorkload 
 		@NumToLoop = 1
 
 		SELECT database_transaction_log_bytes_used

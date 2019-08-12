@@ -97,7 +97,7 @@ INCLUDE (
 WHERE Sold = 1;
 
 
--- Create one for SOLD vehicles
+-- Create one for UNSOLD vehicles
 CREATE NONCLUSTERED INDEX IXF_InventoryFlat_Unsold ON InventoryFlat (
 	[ModelName], [PackageName], [ColorName]
 )

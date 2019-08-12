@@ -39,12 +39,6 @@ GO
 
 
 
------
--- Return to 3a - Savings
-
-
-
-
 
 
 
@@ -53,6 +47,12 @@ GO
 -- Spin up Workload to run in background
 -- 0-Rogue_Execute Full Workload Script Bat x5.bat
 -- 0-Rogue_Execute Query Workload Script Bat x5.bat
+
+
+
+
+-----
+-- Return to 3a - Savings
 
 
 

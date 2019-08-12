@@ -49,6 +49,7 @@ BEGIN TRANSACTION
 		WHERE database_id = DB_ID('AutoDealershipDemo');
 
 COMMIT TRANSACTION
+GO 2
 
 /*
 -- Record output below

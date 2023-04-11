@@ -102,12 +102,15 @@ SELECT *
 FROM sys.dm_db_missing_index_groups;
 
 SELECT *
-FROM sys.dm_db_missing_index_group_stats;
+FROM sys.dm_db_missing_index_details;
 
 SELECT *
-FROM sys.dm_db_missing_index_details;
-GO
+FROM sys.dm_db_missing_index_group_stats;
 
+-- New in SQL Server 2019!
+SELECT *
+FROM sys.dm_db_missing_index_group_stats_query;
+GO
 
 
 

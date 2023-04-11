@@ -38,6 +38,7 @@ WHERE dm_db_partition_stats.object_id = OBJECT_ID('dbo.InventoryFlat');
 --
 -- Execute DML Workload & record before output
 -- Repeat after making changes
+SET NOCOUNT ON;
 SET STATISTICS TIME ON;
 
 BEGIN TRANSACTION
@@ -49,15 +50,14 @@ BEGIN TRANSACTION
 		WHERE database_id = DB_ID('AutoDealershipDemo');
 
 COMMIT TRANSACTION
-GO 2
+GO 
+
 
 /*
 -- Record output below
 
 SELECT 1.0 - (After_TLogBytes / (Before_TLogBytes * 1.0)) AS PctDifference
-SELECT 1.0 - (After_TLogBytes / (Before_TLogBytes * 1.0)) AS PctDifference
 
-SELECT 1.0 - (After_ElapsedTime / (Before_ElapsedTime * 1.0)) AS PctDifference
 SELECT 1.0 - (After_ElapsedTime / (Before_ElapsedTime * 1.0)) AS PctDifference
 
 --SELECT 1.0 - (After_TLogBytes / (Before_TLogBytes * 1.0)) AS PctDifference
